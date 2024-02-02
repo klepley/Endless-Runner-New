@@ -58,7 +58,7 @@ class Play extends Phaser.Scene {
         this.topSeaweeds = this.physics.add.group({
             classType: Phaser.GameObjects.Sprite,
             key: 'seaweed', // Replace 'seaweed' with the key of your seaweed image
-            repeat: 3 , // Adjust the number of seaweeds as needed
+            repeat: 1 , // Adjust the number of seaweeds as needed
             setXY: {
                 x: game.config.width + 50, // Initial X position off the right side of the screen
                 y: 122, // Initial Y position for the top seaweed
@@ -70,11 +70,11 @@ class Play extends Phaser.Scene {
         this.bottomSeaweeds = this.physics.add.group({
             classType: Phaser.GameObjects.Sprite,
             key: 'seaweed', // Replace 'seaweed' with the key of your seaweed image
-            repeat: 1, // Adjust the number of seaweeds as needed
+            repeat: 1 , // Adjust the number of seaweeds as needed
             setXY: {
                 x: game.config.width + 50, // Initial X position off the right side of the screen
                 y: game.config.height - 122, // Initial Y position for the bottom seaweed
-                stepX: 10  , // Horizontal spacing between seaweeds
+                stepX: 500  , // Horizontal spacing between seaweeds
             },
         }); 
 
@@ -104,6 +104,9 @@ class Play extends Phaser.Scene {
 
             // Set up velocity on the body of the seaweed
             seaweed.body.setVelocityX(-250); // Adjust the speed as needed
+
+            // Adjust collider box size and offset
+            seaweed.body.setSize(seaweed.width * .5, seaweed.height * .8  ).setOffset(seaweed.width * .2 , seaweed.height * .01   );
 
             // Add collision between seaweed and ground
             this.physics.add.collider(seaweed, this.ground, this.adjustSeaweedPosition, null, this);
@@ -200,7 +203,7 @@ class Play extends Phaser.Scene {
             if (seaweed.x < 0) {
                 // Respawn the seaweed on the right side
                 seaweed.x = game.config.width + 50;
-                seaweed.y = 20; // Adjust the initial Y position for the top seaweed
+                seaweed.y = 122; // Adjust the initial Y position for the top seaweed
             }
         });
 
@@ -209,7 +212,7 @@ class Play extends Phaser.Scene {
             if (seaweed.x < 0) {
                 // Respawn the seaweed on the right side
                 seaweed.x = game.config.width + 50;
-                seaweed.y = game.config.height - 20; // Adjust the initial Y position for the bottom seaweed
+                seaweed.y = game.config.height - 122; // Adjust the initial Y position for the bottom seaweed
             }
         });
 

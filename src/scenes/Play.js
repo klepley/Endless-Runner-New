@@ -29,18 +29,27 @@ class Play extends Phaser.Scene {
         this.p1Score = 0;
         // display score
         let scoreConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Comic Sans',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
             align: 'right',
             padding: {
-                top: 5,
-                bottom: 5,
+                top: 10,
+                bottom: 10,
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        this.scoreLeft = this.add.text(
+            this.scale.width - borderUISize - borderPadding - scoreConfig.fixedWidth,
+            borderUISize + borderPadding -45 , // Adjust the y value for higher position
+            this.p1Score,
+            scoreConfig
+        );
+        this.scoreLeft.setDepth(1);
+
+    
+        //this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
 
         // Create the ground and ceiling sprite and a corresponding physics body
         this.ground = this.add.tileSprite(0, this.scale.height - 60, this.scale.width, 60, 'floor').setOrigin(0);

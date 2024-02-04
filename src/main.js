@@ -8,10 +8,10 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false
+            debug: true
         }
     },
-    scene: [Menu, LoreMenu, Play ]
+    scene: [Menu, LoreMenu, Play, GameOver ]
 }
 
 let cursors

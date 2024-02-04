@@ -36,7 +36,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Comic Sans',
             fontSize: '28px',
-            backgroundColor: '#FFFFFF',
+             backgroundColor: '#FFFFFF',
             color: '#000000',
             align: 'right',
             padding: {
@@ -52,6 +52,26 @@ class Play extends Phaser.Scene {
             scoreConfig
         );
         this.scoreLeft.setDepth(1);
+
+        let scoreLabelConfig = {
+            fontFamily: 'Comic Sans',
+            fontSize: '28px',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
+            align: 'right',
+            padding: {
+                top: 10,
+                bottom: 10,
+            },
+            fixedWidth: 100
+        }
+        this.scoreLabel = this.add.text(
+            this.scale.width - borderUISize - borderPadding - scoreLabelConfig.fixedWidth - 70 ,
+            borderUISize + borderPadding - 45  ,
+            'Score:',
+            scoreLabelConfig
+        );
+        this.scoreLabel.setDepth(1);
 
         this.scoreTimer = this.time.addEvent({
             delay: 1000,  // 1000 milliseconds (1 second)
@@ -123,7 +143,7 @@ class Play extends Phaser.Scene {
             this.physics.world.enable(seaweed); // Enable physics for the seaweed
 
             // Set up velocity on the body of the seaweed
-            seaweed.body.setVelocityX(-250); // Adjust the speed as needed
+            seaweed.body.setVelocityX(-250 ); // Adjust the speed as needed
 
             // Adjust collider box size and offset
             seaweed.body.setSize(seaweed.width * .5, seaweed.height * .8  ).setOffset(seaweed.width * .2 , seaweed.height * .01   );
@@ -300,7 +320,7 @@ class Play extends Phaser.Scene {
         // Custom game over logic
         const deathSound = this.sound.add('death');
         deathSound.play();        // You can add any game over logic here, such as displaying a game over message or restarting the game.
-        this.scene.start('menuScene');
+        this.scene.start('GameOver');
         // Add your custom game over logic here
     }
 

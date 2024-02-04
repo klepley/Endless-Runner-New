@@ -48,6 +48,13 @@ class Play extends Phaser.Scene {
         );
         this.scoreLeft.setDepth(1);
 
+        this.scoreTimer = this.time.addEvent({
+            delay: 1000,  // 1000 milliseconds (1 second)
+            callback: this.updateScore,
+            callbackScope: this,
+            loop: true
+        });
+
     
         //this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
 
@@ -206,6 +213,7 @@ class Play extends Phaser.Scene {
 
     update() {
 
+
         // Check if any top seaweed is off the left side of the screen
         this.topSeaweeds.children.iterate((seaweed) => {
             if (seaweed.x < 0) {
@@ -262,6 +270,11 @@ class Play extends Phaser.Scene {
         }
     });
 }
+
+    updateScore() {
+        this.p1Score += 200;
+        this.scoreLeft.text = this.p1Score;
+    }
 
     adjustSeaweedPosition(seaweed) {
         if (seaweed.y < game.config.height / 2) {

@@ -14,6 +14,11 @@ class Play extends Phaser.Scene {
         this.load.image('seaweed', './assets/seaweed.png')
         this.load.image('floor', './assets/pebblefloor.png')
         this.load.image('enemy', './assets/enemyfish.png')
+
+        //Load Audio
+        this.load.audio('death', './assets/Ponyo_death.mp3')
+
+        //Load sprites
         this.load.spritesheet('fish1', './assets/fish.png', {
             frameWidth: 50,
             frameHeight: 100
@@ -293,7 +298,8 @@ class Play extends Phaser.Scene {
 
     gameOver() {
         // Custom game over logic
-        // You can add any game over logic here, such as displaying a game over message or restarting the game.
+        const deathSound = this.sound.add('death');
+        deathSound.play();        // You can add any game over logic here, such as displaying a game over message or restarting the game.
         this.scene.start('menuScene');
         // Add your custom game over logic here
     }

@@ -19,9 +19,9 @@ class Play extends Phaser.Scene {
         this.load.audio('death', './assets/Ponyo_death.mp3')
 
         //Load sprites
-        this.load.spritesheet('fish1', './assets/fish.png', {
-            frameWidth: 50,
-            frameHeight: 100
+        this.load.spritesheet('fish1', './assets/fish2.png', {
+            frameWidth: 46,
+            frameHeight: 100  
         });
     
     }
@@ -179,7 +179,7 @@ class Play extends Phaser.Scene {
         this.physics.world.enable(this.player); // Make sure this line is executed before setting up collisions
 
         this.player.body.setCollideWorldBounds(true);
-        this.player.body.setSize(30 , 35 ).setOffset(12, 30);
+        this.player.body.setSize(25 , 25 ).setOffset(8, 35);
 
         cursors = this.input.keyboard.createCursorKeys();
 

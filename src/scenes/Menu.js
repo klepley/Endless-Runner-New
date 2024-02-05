@@ -8,12 +8,13 @@ preload() {
     this.load.image('tempback', './assets/tempback.png')
     //Music
     this.load.audio('music', './assets/poonmusic.mp3')
+    this.load.audio('start', './assets/select.wav')
 
 }
 
     create() {
         let menuConfig = {
-            fontFamily: 'Comic Sans',
+            fontFamily: 'Helvetica',
             fontSize: '50px',
             backgroundColor: '#008080',
             color: '#FFB6C1',
@@ -24,6 +25,9 @@ preload() {
             },
             fixedWidth: 0
         }
+
+        // Add start sound
+        let startSound = this.sound.add('start', { volume: 1 });
     
         // Add the PonyoLogo image and scale it
         let ponyoLogo = this.add.image(game.config.width / 2, 290, 'ponyoLogo').setOrigin(0.5, 0.5);
@@ -38,11 +42,12 @@ preload() {
         // Set up keyboard input for space bar
         this.input.keyboard.on('keydown-SPACE', function () {
             // Transition to the next scene
+            startSound.play()
             this.scene.start('LoreScene'); // Replace 'NextScene' with the key of the scene you want to transition to
         }, this); 
         
         //music for game
-        let music = this.sound.add('music', { loop: true, volume: 0.5});
+        let music = this.sound.add('music', { loop: true, volume: 0.25});
         music.play();
     }
 

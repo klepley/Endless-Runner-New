@@ -42,8 +42,10 @@ preload() {
         padding: { left: 10, right: 10, top: 5, bottom: 5 }
     }).setOrigin(0.5);
 
+    let startSound = this.sound.add('start', { volume: 1 });
     // Set up keyboard input for space bar
     this.input.keyboard.on('keydown-SPACE', function () {
+    startSound.play()
     // Transition to the next scene
     this.scene.start('playScene'); // Replace 'NextScene' with the key of the scene you want to transition to
     }, this);    

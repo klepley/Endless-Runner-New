@@ -23,6 +23,11 @@ class Play extends Phaser.Scene {
             frameWidth: 46,
             frameHeight: 100  
         });
+
+        this.load.spritesheet('GrandmaShark', './assets/GrandmaShark.png', {
+            frameWidth: 85,
+            frameHeight: 50
+        })
     
     }
 
@@ -93,6 +98,14 @@ class Play extends Phaser.Scene {
         this.physics.world.enable(this.ceiling);
         this.ceiling.body.allowGravity = false;
         this.ceiling.body.immovable = true;
+
+        // Set up a timer to spawn Grandma Shark every 10 seconds
+        this.spawnGrandmaTimer = this.time.addEvent({
+            delay: 10000, // 10 seconds
+            callback: this.spawnGrandmaShark,
+            callbackScope: this,
+            loop: true
+        });
 
         // Create a group for seaweed at the top
         this.topSeaweeds = this.physics.add.group({
@@ -175,7 +188,7 @@ class Play extends Phaser.Scene {
         });
 
         // Set up player sprite with physics
-        this.player = this.physics.add.sprite(100, game.config.height / 2, 'fish1', 1).setScale(2);
+        this.player = this.physics.add.sprite(100, game.config.height / 2, 'fish1', 1).setScale(1.5 );
         this.physics.world.enable(this.player); // Make sure this line is executed before setting up collisions
 
         this.player.body.setCollideWorldBounds(true);
@@ -295,6 +308,63 @@ class Play extends Phaser.Scene {
         }
     });
 }
+
+    // Function to spawn Grandma Shark
+    spawnGrandmaShark() {
+        // Create Grandma Shark sprite
+        const grandmaShark = this.physics.add.sprite(this.scale.width + 50, Phaser.Math.Between(100, this.scale.height - 100), 'GrandmaShark').setScale(1.5);
+
+        // Enable physics for Grandma Shark
+        this.physics.world.enable(grandmaShark);
+
+        // Set up velocity to move Grandma Shark from right to left
+        grandmaShark.body.setVelocityX(-500); // Adjust the speed as needed
+
+        // Adjust collider box size and offset
+        grandmaShark.body.setSize(grandmaShark.width * 0.25, grandmaShark.height * 0.5).setOffset(grandmaShark.width * 0.2, grandmaShark.height * 0.2);
+
+        // Flip Grandma Shark to face the left
+        grandmaShark.setFlipX(true);
+
+        // Create the animation
+        if (!this.anims.exists('grandmaSharkAnimation')) {
+            this.anims.create({
+                key: 'grandmaSharkAnimation',
+                frameRate: 5, // Adjust the frame rate as needed
+                repeat: -1,
+                frames: this.anims.generateFrameNumbers('GrandmaShark', { start: 6, end: 11}) // Adjust the frame range based on your spritesheet
+            });
+        }
+
+        // Play the animation
+        grandmaShark.play('grandmaSharkAnimation', true);
+
+
+        // Destroy Grandma Shark when it goes off the left side of the screen
+        grandmaShark.setOrigin(0, 0.5);
+        grandmaShark.setDepth(2);
+
+        // Set up zigzag movement using tweens
+        this.tweens.add({
+            targets: grandmaShark,
+            x: '-=200', // Move left by 200 pixels
+            y: '+=100', // Move down by 100 pixels
+            ease: 'Linear',
+            duration: 1000, // Adjust the duration as needed
+        });
+
+        // Set up collision with the player
+        this.physics.add.collider(grandmaShark, this.player, this.gameOver, null, this);
+
+
+        this.physics.add.collider(grandmaShark, this.ground, this.destroyGrandmaShark, null, this);
+        this.physics.add.collider(grandmaShark, this.ceiling, this.destroyGrandmaShark, null, this);
+    }
+
+    // Function to destroy Grandma Shark when it goes off the left side of the screen
+    destroyGrandmaShark(grandmaShark) {
+        grandmaShark.destroy();
+    }
 
     updateScore() {
         this.p1Score += 200;

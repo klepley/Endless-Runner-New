@@ -13,18 +13,18 @@ class Play extends Phaser.Scene {
         this.load.image('starfield', './assets/starfield.png')
         this.load.image('seaweed', './assets/seaweed.png')
         this.load.image('floor', './assets/pebblefloor.png')
-        this.load.image('enemy', './assets/enemyfish.png')
+        this.load.image('enemy', './assets/kajfish.png')
 
         //Load Audio
         this.load.audio('death', './assets/Ponyo_death.mp3')
 
         //Load sprites
-        this.load.spritesheet('fish1', './assets/fish2.png', {
+        this.load.spritesheet('fish1', './assets/realpoonfish2.png', {
             frameWidth: 46,
             frameHeight: 100  
         });
 
-        this.load.spritesheet('GrandmaShark', './assets/GrandmaShark.png', {
+        this.load.spritesheet('GrandmaShark', './assets/realGrandmaShark.png', {
             frameWidth: 85,
             frameHeight: 50
         })
@@ -101,7 +101,7 @@ class Play extends Phaser.Scene {
 
         // Set up a timer to spawn Grandma Shark every 10 seconds
         this.spawnGrandmaTimer = this.time.addEvent({
-            delay: 10000, // 10 seconds
+            delay: 5000 , // 10 seconds
             callback: this.spawnGrandmaShark,
             callbackScope: this,
             loop: true
@@ -180,7 +180,7 @@ class Play extends Phaser.Scene {
 
         // Set up movement for each enemy
         this.enemies.children.iterate((enemy) => {
-            enemy.setScale(0.015); // Adjust the scale factor
+            enemy.setScale(.5); // Adjust the scale factor
             this.physics.world.enable(enemy); // Enable physics for the enemy
 
             // Set up velocity on the body of the enemy
@@ -318,7 +318,7 @@ class Play extends Phaser.Scene {
         this.physics.world.enable(grandmaShark);
 
         // Set up velocity to move Grandma Shark from right to left
-        grandmaShark.body.setVelocityX(-500); // Adjust the speed as needed
+        grandmaShark.body.setVelocityX(-800); // Adjust the speed as needed
 
         // Adjust collider box size and offset
         grandmaShark.body.setSize(grandmaShark.width * 0.25, grandmaShark.height * 0.5).setOffset(grandmaShark.width * 0.2, grandmaShark.height * 0.2);
@@ -332,7 +332,7 @@ class Play extends Phaser.Scene {
                 key: 'grandmaSharkAnimation',
                 frameRate: 5, // Adjust the frame rate as needed
                 repeat: -1,
-                frames: this.anims.generateFrameNumbers('GrandmaShark', { start: 6, end: 11}) // Adjust the frame range based on your spritesheet
+                frames: this.anims.generateFrameNumbers('GrandmaShark', { start: 6 , end: 8}) // Adjust the frame range based on your spritesheet
             });
         }
 

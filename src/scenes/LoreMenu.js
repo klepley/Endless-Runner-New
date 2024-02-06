@@ -9,9 +9,9 @@ preload() {
 
     create() {
     // Add the lore text
-    let loreText = "Once upon a time in the magical world of Ponyo, adventurous journeys await brave souls. Your mission is to navigate through treacherous obstacles, collect magical items, and discover the secrets of Ponyo. Are you ready to embark on this mystical adventure?";
+    let loreText = "You acquired grandmas's shellphone and she wants it back! Avoid Grandma Shark, her decorative seaweed, and her grandfish for as long as you can. Stay safe Ponyo!";
     this.add.text(50, 50, loreText, {
-        fontFamily: 'Arial',
+        fontFamily: 'Helveta',
         fontSize: '24px',
         color: '#FFFFFF',
         align: 'left',
@@ -21,9 +21,9 @@ preload() {
     });
 
     // Add "How to Play" section on the right side
-    let howToPlayText = "How to Play:\n\nUse the arrow keys to move your character.\nPress the spacebar to jump.\nAvoid obstacles and Grandma Turtle to score points.\nSwim for as long as possible to achieve the highest score!";
+    let howToPlayText = "How to Play:\n\nUse the up and down arrow keys to move Ponyo.\nAvoid obstacles and Grandma Shark to score points.\nSwim for as long as possible to achieve the highest score!";
     this.add.text(game.config.width / 2 + 50, 50, howToPlayText, {
-            fontFamily: 'Arial',
+            fontFamily: 'Helveta',
             fontSize: '24px',
             color: '#FFFFFF',
             align: 'left',
@@ -34,7 +34,7 @@ preload() {
 
     let startGameText = "Click spacebar to start game";
     this.add.text(game.config.width / 2, game.config.height - 150, startGameText, {
-        fontFamily: 'Arial',
+        fontFamily: 'Helveta',
         fontSize: '50px',
         color: '#FFFFFF',
         align: 'center',

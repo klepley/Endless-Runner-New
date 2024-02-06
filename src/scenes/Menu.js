@@ -8,7 +8,7 @@ preload() {
     this.load.image('ponyoLogo', './assets/ponyoLogo.png')
     //this.load.image('tempback', './assets/tempback.png')
     //Music
-    this.load.audio('music', './assets/poonmusic.mp3')
+    this.load.audio('music', './assets/stressgame.mp3')
     this.load.audio('start', './assets/select.wav')
 
 }

@@ -17,6 +17,9 @@ class Play extends Phaser.Scene {
 
         //Load Audio
         this.load.audio('death', './assets/Ponyo_death.mp3')
+        this.load.audio('weedeath', './assets/big-bubble.mp3')
+        this.load.audio('fishdeath', './assets/waterdrop.mp3')
+        this.load.audio('woosh', './assets/woosh.mp3')
 
         //Load sprites
         this.load.spritesheet('fish1', './assets/realpoonfish2.png', {
@@ -30,7 +33,6 @@ class Play extends Phaser.Scene {
         })
     
     }
-
     create() {
 
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
@@ -204,9 +206,12 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.ceiling, this.gameOver, null, this);
 
         // Set up collisions
-        this.checkCollision(this.player, this.enemies);
-        this.physics.add.collider(this.player, this.topSeaweeds, this.gameOver, null, this);
-        this.physics.add.collider(this.player, this.bottomSeaweeds, this.gameOver, null, this);
+        this.checkCollision(this.player, this.enemies)
+        this.checkBotWeedCollision(this.player, this.bottomSeaweeds)
+        this.checkTopWeedCollision(this.player, this.topSeaweeds)
+        //this.physics.add.collider(this.player, this.topSeaweeds, this.gameOver, null, this);
+        //this.physics.add.collider(this.player, this.bottomSeaweeds, this.gameOver, null, this);
+            
 
     
     if (!this.anims.exists('idle-down')) {
@@ -344,6 +349,8 @@ class Play extends Phaser.Scene {
         grandmaShark.setOrigin(0, 0.5);
         grandmaShark.setDepth(2);
 
+        const wooshSound = this.sound.add('woosh');
+
         // Set up zigzag movement using tweens
         this.tweens.add({
             targets: grandmaShark,
@@ -351,6 +358,9 @@ class Play extends Phaser.Scene {
             y: '+=100', // Move down by 100 pixels
             ease: 'Linear',
             duration: 1000, // Adjust the duration as needed
+            onComplete: () => {
+                wooshSound.play()
+            }
         });
 
         // Set up collision with the player
@@ -381,8 +391,35 @@ class Play extends Phaser.Scene {
         }
     }
 
+    checkTopWeedCollision(player, topSeaweeds) {
+        this.physics.add.collider(player, topSeaweeds, (player, seaweed) => {
+            // Play 'weedeath' sound only when player collides with topSeaweeds
+            const weedeath = this.sound.add('weedeath');
+            weedeath.play();
+
+            // Handle any other logic related to the collision
+            this.gameOver();
+        }, null, this);
+    }
+
+    checkBotWeedCollision(player, bottomSeaweeds) {
+        this.physics.add.collider(player, bottomSeaweeds, (player, seaweed) => {
+            // Play 'weedeath' sound only when player collides with topSeaweeds
+            const weedeath = this.sound.add('weedeath');
+            weedeath.play();
+
+            // Handle any other logic related to the collision
+            this.gameOver();
+        }, null, this);
+    }
+
     checkCollision(player, enemies) {
-        this.physics.add.collider(player, enemies, this.gameOver, null, this);
+        this.physics.add.collider(player, enemies, (player, enemies) => {
+            const fishdeath = this.sound.add('fishdeath');
+            fishdeath.play()
+
+            this.gameOver()
+        }, null, this)
     }
     
 

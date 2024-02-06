@@ -1,11 +1,12 @@
 class Menu extends Phaser.Scene {
     constructor() {
         super("menuScene")
+        this.musicPlaying = false;
     }
 
 preload() {
     this.load.image('ponyoLogo', './assets/ponyoLogo.png')
-    this.load.image('tempback', './assets/tempback.png')
+    //this.load.image('tempback', './assets/tempback.png')
     //Music
     this.load.audio('music', './assets/poonmusic.mp3')
     this.load.audio('start', './assets/select.wav')
@@ -46,9 +47,12 @@ preload() {
             this.scene.start('LoreScene'); // Replace 'NextScene' with the key of the scene you want to transition to
         }, this); 
         
-        //music for game
-        let music = this.sound.add('music', { loop: true, volume: 0.25});
-        music.play();
+        // Check if music is not already playing, then start it
+        if (!this.musicPlaying) {
+            let music = this.sound.add('music', { loop: true, volume: 0.25 });
+            music.play();
+            this.musicPlaying = true;
+        }
     }
 
     update() {

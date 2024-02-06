@@ -73,7 +73,7 @@ class Play extends Phaser.Scene {
         this.scoreLabel = this.add.text(
             this.scale.width - borderUISize - borderPadding - scoreLabelConfig.fixedWidth - 70 ,
             borderUISize + borderPadding - 45  ,
-            'Score:',
+            'Score :',
             scoreLabelConfig
         );
         this.scoreLabel.setDepth(1);
@@ -115,7 +115,7 @@ class Play extends Phaser.Scene {
             setXY: {
                 x: game.config.width + 50, // Initial X position off the right side of the screen
                 y: 122, // Initial Y position for the top seaweed
-                stepX: 1000, // Horizontal spacing between seaweeds
+                stepX: 10000, // Horizontal spacing between seaweeds
             },
         });
 
@@ -357,7 +357,7 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(grandmaShark, this.player, this.gameOver, null, this);
 
 
-        this.physics.add.collider(grandmaShark, this.ground, this.destroyGrandmaShark, null, this);
+        //this.physics.add.collider(grandmaShark, this.ground, this.destroyGrandmaShark, null, this);
         this.physics.add.collider(grandmaShark, this.ceiling, this.destroyGrandmaShark, null, this);
     }
 

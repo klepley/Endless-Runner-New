@@ -5,11 +5,9 @@ class Menu extends Phaser.Scene {
     }
 
 preload() {
-    this.load.image('ponyoLogo', './assets/ponyoLogo.png')
-    //this.load.image('tempback', './assets/tempback.png')
-    //Music
-    this.load.audio('music', './assets/stressgame.mp3')
-    this.load.audio('start', './assets/select.wav')
+    this.load.image('ponyoLogo', './assets/images/ponyoLogo.png')
+    this.load.audio('music', './assets/sounds/stressgame.mp3')
+    this.load.audio('start', './assets/sounds/select.wav')
 
 }
 

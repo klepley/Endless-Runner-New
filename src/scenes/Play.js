@@ -10,16 +10,17 @@ class Play extends Phaser.Scene {
     preload() {
 
         //this.load.image('ponyoLogo', './assets/ponyoLogo.png')
-        this.load.image('starfield', './assets/starfield.png')
-        this.load.image('seaweed', './assets/seaweed.png')
-        this.load.image('floor', './assets/pebblefloor.png')
-        this.load.image('enemy', './assets/kajfish.png')
+        this.load.image('starfield', './assets/images/starfield.png')
+        this.load.image('seaweed', './assets/images/seaweed.png')
+        this.load.image('floor', './assets/images/pebblefloor.png')
+        this.load.image('enemy', './assets/images/kajfish.png')
 
         //Load Audio
-        this.load.audio('death', './assets/Ponyo_death.mp3')
-        this.load.audio('weedeath', './assets/big-bubble.mp3')
-        this.load.audio('fishdeath', './assets/waterdrop.mp3')
-        this.load.audio('woosh', './assets/woosh.mp3')
+        this.load.audio('death', './assets/sounds/Ponyo_death.mp3')
+        this.load.audio('weedeath', './assets/sounds/big-bubble.mp3')
+        this.load.audio('fishdeath', './assets/sounds/waterdrop.mp3')
+        this.load.audio('woosh', './assets/sounds/woosh.mp3')
+        this.load.audio('sharkdeath', './assets/sounds/sharkdeath.mp3')
 
         //Load sprites
         this.load.spritesheet('fish1', './assets/realpoonfish2.png', {
@@ -303,15 +304,25 @@ class Play extends Phaser.Scene {
             let playerMovement
             playerVector.length() ? playerMovement = 'walk' : playerMovement = 'idle'
             this.player.play(playerMovement + '-' + playerDirection, true)
+
+        // // Check if the player collides with GrandmaShark
+        // this.physics.world.overlap(this.player, this.enemies, (player, enemy) => {
+        //     // Play 'sharkdeath' sound when player collides with GrandmaShark
+        //     const sharkdeath = this.sound.add('sharkdeath');
+        //     sharkdeath.play();
+
+        //     // Handle any other logic related to the collision
+        //     this.gameOver();
+        // }, null, this);
     
-    // Check if any enemy is off the left side of the screen
-    this.enemies.children.iterate((enemy) => {
-        if (enemy.x < 0) {
-            // Respawn the enemy on the right side with a new random vertical position
-            enemy.x = game.config.width + 50; // Initial X position off the right side of the screen
-            enemy.y = Phaser.Math.Between(game.config.height / 3, (2 * game.config.height) / 3); // Initial Y position within the middle third
-        }
-    });
+        // Check if any enemy is off the left side of the screen
+        this.enemies.children.iterate((enemy) => {
+            if (enemy.x < 0) {
+                // Respawn the enemy on the right side with a new random vertical position
+                enemy.x = game.config.width + 50; // Initial X position off the right side of the screen
+                enemy.y = Phaser.Math.Between(game.config.height / 3, (2 * game.config.height) / 3); // Initial Y position within the middle third
+            }
+        });
 }
 
     // Function to spawn Grandma Shark
@@ -361,10 +372,10 @@ class Play extends Phaser.Scene {
             onComplete: () => {
                 wooshSound.play()
             }
-        });
+        }); 
 
         // Set up collision with the player
-        this.physics.add.collider(grandmaShark, this.player, this.gameOver, null, this);
+        this.physics.add.collider(grandmaShark, this.player, this.gameOver, null, this );
 
 
         //this.physics.add.collider(grandmaShark, this.ground, this.destroyGrandmaShark, null, this);

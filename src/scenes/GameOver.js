@@ -3,6 +3,10 @@ class GameOver extends Phaser.Scene {
         super("GameOver");
     }
 
+    preload() {
+        this.load.image('madpoon', './assets/images/madpoon.png')
+    }
+
     create() {
         // Set the background color
         this.cameras.main.setBackgroundColor('#000000'); // Set to black for example
@@ -36,6 +40,12 @@ class GameOver extends Phaser.Scene {
         this.add.text(this.scale.width / 2, this.scale.height / 2 + 50, 'Press SpaceBar to Play again!', playAgainTextConfig)
             .setOrigin(0.5)
             .setDepth(1);
+
+        // Add the madpoon image
+        let madpoonImage = this.add.image(this.scale.width / 2, this.scale.height / 2 + 175 , 'madpoon')
+            .setOrigin(0.5)
+            .setDepth(1)
+            .setScale(0.20)
 
         let startSound = this.sound.add('start', { volume: 1 });
 

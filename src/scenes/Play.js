@@ -325,7 +325,11 @@ class Play extends Phaser.Scene {
     // Function to spawn Grandma Shark
     spawnGrandmaShark() {
         // Create Grandma Shark sprite
-        const grandmaShark = this.physics.add.sprite(this.scale.width + 50, Phaser.Math.Between(100, this.scale.height - 100), 'GrandmaShark').setScale(1.5);
+        // Calculate a random vertical position for Grandma Shark within a safe range
+        const safeVerticalPosition = Phaser.Math.Between(100, this.scale.height - 100);
+
+        // Create Grandma Shark sprite
+        const grandmaShark = this.physics.add.sprite(this.scale.width + 50, safeVerticalPosition, 'GrandmaShark').setScale(1.5);
 
         // Enable physics for Grandma Shark
         this.physics.world.enable(grandmaShark);

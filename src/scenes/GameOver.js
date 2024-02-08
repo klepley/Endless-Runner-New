@@ -28,7 +28,7 @@ class GameOver extends Phaser.Scene {
     
         // Display "Press SpaceBar to Play again!" text
         let playAgainTextConfig = {
-            fontFamily: 'Helvetica',
+            fontFamily: 'Helvetica', 
             fontSize: '32px',
             color: '#FFFFFF',  // White color
             align: 'center',

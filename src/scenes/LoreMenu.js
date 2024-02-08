@@ -4,11 +4,13 @@ class LoreMenu extends Phaser.Scene {
     }
 
 preload() {
-
+    this.load.image('starfield', './assets/officialpoonback.png')
 }
 
     create() {
     // Add the lore text
+    this.starfield = this.add.tileSprite(0, 0, 800, 600, 'starfield').setOrigin(0, 0);
+
     let loreText = "You acquired grandmas's shellphone and she wants it back! Avoid Grandma Shark, her decorative seaweed, and her grandfish for as long as you can. Stay safe Ponyo!";
     this.add.text(50, 50, loreText, {
         fontFamily: 'Helveta',
@@ -21,7 +23,7 @@ preload() {
     });
 
     // Add "How to Play" section on the right side
-    let howToPlayText = "How to Play:\n\nUse the up and down arrow keys to move Ponyo.\nAvoid obstacles and Grandma Shark to score points.\nSwim for as long as possible to achieve the highest score!";
+    let howToPlayText = "How to Play:\n\nUse the ^ (up) and v (down) arrow keys to move Ponyo.\nAvoid obstacles and Grandma Shark to score points.\nSwim for as long as possible to achieve the highest score!";
     this.add.text(game.config.width / 2 + 50, 50, howToPlayText, {
             fontFamily: 'Helveta',
             fontSize: '24px',

@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
     preload() {
 
         //this.load.image('ponyoLogo', './assets/ponyoLogo.png')
-        this.load.image('starfield', './assets/images/starfield.png')
+        this.load.image('starfield', './assets/images/seatemp.png')
         this.load.image('seaweed', './assets/images/seaweed.png')
         this.load.image('floor', './assets/images/pebblefloor.png')
         this.load.image('enemy', './assets/images/kajfish.png')
@@ -36,7 +36,7 @@ class Play extends Phaser.Scene {
     }
     create() {
 
-        this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+        this.starfield = this.add.tileSprite(0, 0, 800, 600, 'starfield').setOrigin(0, 0);
 
 
         this.p1Score = 0;
@@ -251,6 +251,13 @@ class Play extends Phaser.Scene {
         });
     }
 
+    this.speedUpTimer = this.time.addEvent({
+        delay: 10000 ,  // 10 seconds 
+        callback: this.speedUpEverything,
+        callbackScope: this,
+        loop: true
+    });
+
 
     }
 
@@ -304,16 +311,6 @@ class Play extends Phaser.Scene {
             let playerMovement
             playerVector.length() ? playerMovement = 'walk' : playerMovement = 'idle'
             this.player.play(playerMovement + '-' + playerDirection, true)
-
-        // // Check if the player collides with GrandmaShark
-        // this.physics.world.overlap(this.player, this.enemies, (player, enemy) => {
-        //     // Play 'sharkdeath' sound when player collides with GrandmaShark
-        //     const sharkdeath = this.sound.add('sharkdeath');
-        //     sharkdeath.play();
-
-        //     // Handle any other logic related to the collision
-        //     this.gameOver();
-        // }, null, this);
     
         // Check if any enemy is off the left side of the screen
         this.enemies.children.iterate((enemy) => {
@@ -440,6 +437,27 @@ class Play extends Phaser.Scene {
         deathSound.play();        // You can add any game over logic here, such as displaying a game over message or restarting the game.
         this.scene.start('GameOver');
         // Add your custom game over logic here
+    }
+
+    speedUpEverything() {
+        // Increase the velocity of the player
+        this.PLAYER_VELOCITY *= 1.2;  // You can adjust the factor as needed
+    
+        // Increase the velocity of enemies
+        this.enemies.children.iterate((enemy) => {
+            enemy.body.velocity.x *= 1.2;  // You can adjust the factor as needed
+        });
+    
+        // Increase the velocity of seaweeds
+        this.topSeaweeds.children.iterate((seaweed) => {
+            seaweed.body.velocity.x *= 1.2;  // You can adjust the factor as needed
+        });
+    
+        this.bottomSeaweeds.children.iterate((seaweed) => {
+            seaweed.body.velocity.x *= 1.2;  // You can adjust the factor as needed
+        });
+    
+        // You can add other elements that you want to speed up
     }
 
 }

@@ -9,6 +9,9 @@ class Play extends Phaser.Scene {
 
     preload() {
 
+        //Load Sprite Atlas
+        this.load.atlas('fish', './assets/realpoonfish2.png', 'sprites.json')
+
         //this.load.image('ponyoLogo', './assets/ponyoLogo.png')
         this.load.image('starfield', './assets/images/seatemp.png')
         this.load.image('seaweed', './assets/images/seaweed.png')
